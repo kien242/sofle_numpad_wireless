@@ -5,6 +5,13 @@
  */
 
 #include "sofle_numpad.dtsi"
+#include <dt-bindings/led/led.h>
+
+/ {
+	chosen {
+		zmk,underglow = &led_strip;
+	};
+};
 
 &default_transform {
 	col-offset = <3>;
@@ -16,13 +23,13 @@
 		, <&stm32_arduino 20 GPIO_ACTIVE_HIGH>
 		, <&stm32_arduino 18 GPIO_ACTIVE_HIGH>
 		, <&stm32_arduino 16 GPIO_ACTIVE_HIGH>
-		, <&stm32_arduino 28 GPIO_ACTIVE_HIGH>
+		, <&stm32_arduino 7 GPIO_ACTIVE_HIGH>
 		, <&stm32_arduino 29 GPIO_ACTIVE_HIGH>
 		;
 
     row-gpios
         = <&stm32_arduino 8  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-        , <&stm32_arduino 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+        , <&stm32_arduino 17 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
         , <&stm32_arduino 31 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
         , <&stm32_arduino 30 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
         , <&stm32_arduino 4  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
@@ -53,4 +60,31 @@
         com-sequential;
         prechargep = <0x22>;
     };
+};
+
+&spi1 {
+  compatible = "nordic,nrf-spim";
+
+  status = "okay";
+  mosi-pin = <13>;
+  // Unused pins, needed for SPI definition, but not used by the ws2812 driver itself.
+  sck-pin = <27>;
+  miso-pin = <5>;
+
+  led_strip: ws2812@0 {
+    compatible = "worldsemi,ws2812-spi";
+    label = "WS2812";
+
+    /* SPI */
+    reg = <0>; /* ignored, but necessary for SPI bindings */
+    spi-max-frequency = <4000000>;
+
+    /* WS2812 */
+    chain-length = <6>; /* number of LEDs */
+    spi-one-frame = <0x70>;
+    spi-zero-frame = <0x40>;
+    color-mapping = <LED_COLOR_ID_GREEN
+                          LED_COLOR_ID_RED
+                          LED_COLOR_ID_BLUE>;
+  };
 };

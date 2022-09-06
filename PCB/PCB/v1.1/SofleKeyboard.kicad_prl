@@ -65,7 +65,11 @@
       35,
       36
     ],
+<<<<<<< HEAD
     "visible_layers": "ffdffff_ffffffff",
+=======
+    "visible_layers": "ffffeff_ffffffff",
+>>>>>>> 671ae8392cec79b75a4fd03923c431e70d25f59b
     "zone_display_mode": 0
   },
   "meta": {
