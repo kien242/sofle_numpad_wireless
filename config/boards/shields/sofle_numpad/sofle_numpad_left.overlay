@@ -32,7 +32,7 @@
         , <&stm32_arduino 17 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
         , <&stm32_arduino 31 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
         , <&stm32_arduino 30 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-        , <&stm32_arduino 4  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+        , <&stm32_arduino 26  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
         ;
 };
 
